@@ -68,7 +68,9 @@ video_labels
 It should be noted that in the demo, it is assumed that DemoChildA and B will be used for training, and DemoChildC and D will be used for validation. If using one's own dataset, it is necessary to modify lines 81-89 of label_1Fold.py to reflect the desired training and validation sets.
 # Train——pretrain on Kinetics
 The training time is relatively long, it is recommended to use the checkpoints we have already trained
-
+download [ViT-L/14](https://drive.google.com/file/d/1kMB2Naa3IvTA8Yxc-2P48Gsp7upDvupx/view?usp=drive_link)
+pretrained model from [pre-trained-ckp](https://drive.google.com/file/d/1-hqKYK_Q_8J_Q_zQYQ8QKXWYZ-QYQ8QK/view?usp=drive_link) and [kinetics400]](https://drive.google.com/file/d/109PXerbP3vAFaNj1zy82uKrUQ1CUKTdU/view?usp=drive_link)
+and place these in ./ckp
 If you want to train on your own, please organize the dataset of [Kinetics-600/400](https://arxiv.org/abs/1705.06950 ) Convert to the same format as trainlabel.txt in the videolabels folder.
 There is an example configuration file in configs/pretrain. yaml. Modify the root path in this YAML file to point to the folder containing processed videos. Then, run the training script:
 ```
