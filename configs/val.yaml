@@ -1,0 +1,20 @@
+DATA:
+    ROOT: 'processed_video_path'
+    TRAIN_FILE: 'video_labels/train_label.txt'
+    VAL_FILE: 'video_labels/val_label.txt'
+    DATASET: my_dataset
+    NUM_FRAMES: 24
+    NUM_CLASSES: 576
+    LABEL_LIST: 'labels/mylabels_tmp.csv'
+MODEL:
+    ARCH: ViT-L/14
+TRAIN:
+    BATCH_SIZE: 1
+    ACCUMULATION_STEPS: 8
+    LR: 8.e-6
+    WARMUP_EPOCHS: 5
+    EPOCHS: 10
+    START_EPOCH: -1
+TEST:
+    ONLY_TEST: True
+PRINT_FREQ: 1

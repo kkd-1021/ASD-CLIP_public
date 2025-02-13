@@ -1,0 +1,20 @@
+DATA:
+    ROOT: 'video fold path'
+    TRAIN_FILE: 'kinetics/train.txt'
+    VAL_FILE: 'kinetics/val.txt'
+    DATASET: my_dataset
+    NUM_FRAMES: 8
+    NUM_CLASSES: 600
+    LABEL_LIST: 'labels/mylabels_tmp.csv'
+MODEL:
+    ARCH: ViT-L/14
+TRAIN:
+    BATCH_SIZE: 1
+    ACCUMULATION_STEPS: 16
+    LR: 1.e-6
+    WARMUP_EPOCHS: 5
+    EPOCHS: 30
+    ONLY_FINETUNE: True
+TEST:
+    ONLY_TEST: False
+PRINT_FREQ: 1
