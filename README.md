@@ -1,5 +1,5 @@
 
-# Early Detection of Autism Spectrum Disorder from Caregiver-Child Interaction Videos Using a Pretrained Vision-Language Model
+# Automated Early Detection of Autism Spectrum Disorder via a Pretrained Vision-Language Model in Naturalistic Caregiver-Child Interactions
 
 
 
