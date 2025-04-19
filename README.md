@@ -68,6 +68,7 @@ There is an example configuration file in configs/train.yaml. Modify the root pa
 bash train.sh
 ```
 - **Note:**
+- remember to replace path_to_save_dir to your own path
 - --nproc_per_node = the number of gpu in your server
 - This script will train the model on the videos listed in train_label.txt, the corresponding validation videos are listed in val_label.txt
 
