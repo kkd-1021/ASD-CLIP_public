@@ -15,6 +15,7 @@ cd ASD-CLIP_public
 conda create -n ASD-CLIP python=3.8
 conda init bash && source /root/.bashrc
 conda activate ASD-CLIP
+conda install -c conda-forge lap
 bash env.sh
 ```
 Installing all packages takes approximately 10 min, depending on the network
