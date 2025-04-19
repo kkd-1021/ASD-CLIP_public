@@ -33,7 +33,7 @@ from val_with_id_utils import validate_personwise
 
 
 
-project_path = ("tf-logs-0121-pretrained")
+project_path = ("tf-logs")
 name = "ASD-clip"
 tb_writer_summary_path = os.path.join(project_path, "ASD-clip", name, "Logs")
 current_time = time.strftime("%Y%m%d-%H%M%S", time.localtime())

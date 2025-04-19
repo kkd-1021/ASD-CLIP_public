@@ -95,8 +95,8 @@ def build_optimizer(config, model):
 def build_scheduler(config, optimizer, n_iter_per_epoch):
     num_steps = int(config.TRAIN.EPOCHS * n_iter_per_epoch)
     warmup_steps = int(config.TRAIN.WARMUP_EPOCHS * n_iter_per_epoch)
-    print("\033[0;31;40mnum_steps=\033[0m" + str(n_iter_per_epoch))
-    print("\033[0;31;40mnum_steps=\033[0m" + str(num_steps))
+    #print("\033[0;31;40mnum_steps=\033[0m" + str(n_iter_per_epoch))
+    #print("\033[0;31;40mnum_steps=\033[0m" + str(num_steps))
 
 
     lr_scheduler = CosineLRScheduler(

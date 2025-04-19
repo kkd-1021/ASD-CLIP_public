@@ -49,17 +49,17 @@ class Pred_storage():
         similarity=convert_to_scalar(similarity)
         gt_label_index=convert_to_scalar(gt_label_index)
 
-
-        print("add similarity")
-        print(similarity)
-        print(name_id)
-        print(gt_label_index)
+        #
+        # print("add similarity")
+        # print(similarity)
+        # print(name_id)
+        # print(gt_label_index)
         find_person=False
 
         for person in self.person_pred_list:
             if int(person.name_id)==int(name_id):
                 find_person=True
-                print("\033[0;31;40mfind person\033[0m")
+                #print("\033[0;31;40mfind person\033[0m")
                 person.add_pred(similarity)
                 if person.gt_label_index!=gt_label_index:
 
@@ -86,9 +86,9 @@ class Person_pred():
         self.average_similarity=0
         self.count=0
         self.match_number=0
-        print("\033[0;31;40mnew person\033[0m")
-        print("name: "+str(self.name_id))
-        print("gt label: "+str(gt_label_index))
+        # print("\033[0;31;40mnew person\033[0m")
+        # print("name: "+str(self.name_id))
+        # print("gt label: "+str(gt_label_index))
     def add_pred(self, similarity):
         self.pred_list.append(similarity)
         self.average_similarity=np.mean(self.pred_list)
@@ -178,7 +178,7 @@ def validate_personwise(val_loader, text_labels, model, config,logger,writer,ful
 
         for person in pred_storage.person_pred_list:
             print("\033[0;31;40mperson name_id\033[0m")
-            print("person name"+str(person.name_id))
+            print(f"person Id:{str(person.name_id)}")
 
             if config.TEST.GET_BEST==True:
                 if person.gt_label_index>0.5:
@@ -191,9 +191,10 @@ def validate_personwise(val_loader, text_labels, model, config,logger,writer,ful
                 local_pred.append(person.average_similarity)
                 local_gt.append(person.gt_label_index)
             #print("\033[0;31;40mperson name_id\033[0m")
-            print(person.average_similarity,person.gt_label_index)
-            print(person.match_number,person.count)
-            print(person.pred_list)
+            #print(person.average_similarity,person.gt_label_index)
+            print(f"ground truth diagnosis: {person.gt_label_index}")
+            print(f"{person.match_number} in {person.count} prediction match")
+            print(f"model prediction: {person.pred_list}")
             local_total_count+=person.count
             local_total_match+=person.match_number
 
@@ -205,27 +206,27 @@ def validate_personwise(val_loader, text_labels, model, config,logger,writer,ful
 
 
         print("\033[0;31;40mvideowise acc\033[0m")
-        print(local_total_match,local_total_count)
-        print("acc="+str(local_total_match/local_total_count*100.))
+        print(f"{local_total_match} in {local_total_count} prediction correct")
+        print(f"acc={str(local_total_match/local_total_count*100.)}")
 
         print("\033[0;31;40mpersonwise acc\033[0m")
-        print(local_person_match, local_person_count)
-        print("acc=" + str(local_person_match / local_person_count * 100.))
+        print(f"{local_person_match} in {local_person_count} prediction correct")
+        print(f"acc={str(local_person_match / local_person_count * 100.)}")
 
 
 
         '''绘制单独roc图'''
         from sklearn.metrics import roc_curve, auc
-        print("\033[0;31;40mlocal pred gt\033[0m")
-        print(local_pred)
-        print(local_gt)
+        print("\033[0;31;40m validation result\033[0m")
+        print(f"prediction list:{local_pred}")
+        print(f"ground truth list:{local_gt}")
 
         fpr, tpr, thersholds = roc_curve(local_gt, local_pred,pos_label=1)
-        for i, value in enumerate(thersholds):
-            print("%f %f %f" % (fpr[i], tpr[i], value))
+        # for i, value in enumerate(thersholds):
+        #     print("%f %f %f" % (fpr[i], tpr[i], value))
         roc_auc = auc(fpr, tpr)
         print("\033[0;31;40mauc\033[0m")
-        print(roc_auc)
+        print(f"AUC={roc_auc}")
         # plt.plot(fpr, tpr, 'k--', label='ROC (area = {0:.2f})'.format(roc_auc), lw=2)
         # plt.xlim([-0.05, 1.05])  # 设置x、y轴的上下限，以免和边缘重合，更好的观察图像的整体
         # plt.ylim([-0.05, 1.05])
@@ -262,8 +263,8 @@ def validate_personwise(val_loader, text_labels, model, config,logger,writer,ful
         avg_auc=average_tensor(torch.tensor(roc_auc).to(similarity.device))
         avg_auc=avg_auc.cpu().numpy()
         writer.add_scalar('auc', avg_auc, epoch)
-        print("\033[0;31;40m global auc\033[0m")
-        print(avg_auc)
+        # print("\033[0;31;40m global auc\033[0m")
+        # print(avg_auc)
 
 
         # def Change2Three(inp):

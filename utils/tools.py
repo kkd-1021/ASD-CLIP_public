@@ -127,10 +127,10 @@ def auto_resume_helper(output_dir):
 
 def generate_text(data):
     text_aug = f"{{}}"
-    print("\033[0;31;40mtext=\033[0m")
-    print(data.classes)
+    #print("\033[0;31;40mtext=\033[0m")
+    #print(data.classes)
     classes = torch.cat([clip.tokenize(text_aug.format(c), context_length=77) for i, c in data.classes])
-    print(classes)
+    #print(classes)
 
     return classes
 

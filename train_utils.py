@@ -108,10 +108,10 @@ def train_one_epoch(epoch, model, criterion, optimizer, lr_scheduler, train_load
 
 
 
-        print("\033[0;31;40mcls loss total\033[0m")
-        print(cls_loss)
-        print(f"\033[0;31;40mcontrastive loss total\033[0m")
-        print(contrastive_loss)
+        # print("\033[0;31;40mcls loss total\033[0m")
+        # print(cls_loss)
+        # print(f"\033[0;31;40mcontrastive loss total\033[0m")
+        # print(contrastive_loss)
 
         writer.add_scalar('cls loss', cls_loss, idx + epoch * len(train_loader))
         writer.add_scalar('contrastive loss', contrastive_loss, idx + epoch * len(train_loader))
@@ -119,7 +119,7 @@ def train_one_epoch(epoch, model, criterion, optimizer, lr_scheduler, train_load
         writer.add_scalar('rbb loss', rbb_loss, idx + epoch * len(train_loader))
 
         if config.TRAIN.NO_CLASSIFIER:
-            print(f"\033[0;31;40m NO_CLASS\033[0m")
+            #print(f"\033[0;31;40m NO_CLASS\033[0m")
             total_loss=contrastive_loss+(cls_loss+rbb_loss+sa_loss)*1e-100
         elif config.TRAIN.NO_TEXT:
             total_loss = contrastive_loss* 1e-100 + (cls_loss + rbb_loss + sa_loss)
@@ -129,8 +129,8 @@ def train_one_epoch(epoch, model, criterion, optimizer, lr_scheduler, train_load
             #total_loss = contrastive_loss * 0. + cls_loss + rbb_loss* 0. + sa_loss* 0.
             writer.add_scalar('loss', total_loss, idx + epoch * len(train_loader))
 
-        print("\033[0;31;40mloss\033[0m")
-        print(total_loss)
+        #print("\033[0;31;40mloss\033[0m")
+        print(f"loss={total_loss}")
 
         total_loss = total_loss / config.TRAIN.ACCUMULATION_STEPS
 
@@ -147,12 +147,12 @@ def train_one_epoch(epoch, model, criterion, optimizer, lr_scheduler, train_load
             total_loss.backward()
 
         lr = optimizer.state_dict()['param_groups'][0]['lr']
-        print("\033[0;31;40mlr=\033[0m" + str(lr))
+        #print("\033[0;31;40mlr=\033[0m" + str(lr))
         writer.add_scalar('xclip_lr', optimizer.state_dict()['param_groups'][0]['lr'], idx + epoch * len(train_loader))
         writer.add_scalar('cls_lr', optimizer.param_groups[8]['lr'], idx + epoch * len(train_loader))
 
         if not config.TRAIN.ONLY_FINETUNE:
-            print("\033[0;31;40mclip optimizing\033[0m" + str(lr))
+            #print("\033[0;31;40mclip optimizing\033[0m" + str(lr))
             if config.TRAIN.ACCUMULATION_STEPS > 1:
                 if (idx + 1) % config.TRAIN.ACCUMULATION_STEPS == 0:
                     optimizer.step()

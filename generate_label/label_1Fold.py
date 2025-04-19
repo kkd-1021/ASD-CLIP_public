@@ -3,7 +3,7 @@ import pandas as pd
 from label_utils import get_person_name, find_value_from_xlsx
 import random
 import os
-from utils.labelEncode import labelEncode, labelDecode, Feat2Idx, Idx2Feat
+from labelEncode import labelEncode, labelDecode, Feat2Idx, Idx2Feat
 
 child_map = []
 
@@ -40,7 +40,7 @@ class Person():
         self.video_list.append(video_name)
 
     def set_label(self, label):
-        if label not in ['ASD', 'TD', 'BAP']:
+        if label not in ['ASD', 'TD', 'DD']:
             print("label error")
             exit(1)
         self.label = label
@@ -58,7 +58,7 @@ io = r'clinical_data/totaldata.xlsx'
 excel_data = pd.read_excel(io, sheet_name=0)
 
 asd_person_list = []
-bap_person_list = []
+dd_person_list = []
 td_person_list = []
 
 for person in person_storage.person_list:
@@ -66,29 +66,29 @@ for person in person_storage.person_list:
     person.set_label(asd_ret)
     if asd_ret == 'ASD':
         asd_person_list.append(person)
-    elif asd_ret == 'BAP':
-        bap_person_list.append(person)
+    elif asd_ret == 'DD':
+        dd_person_list.append(person)
     elif asd_ret == 'TD':
         td_person_list.append(person)
 
 dist_path = "video_labels/"
 
 random.shuffle(asd_person_list)
-random.shuffle(bap_person_list)
+random.shuffle(dd_person_list)
 random.shuffle(td_person_list)
 
 
 # val_ratio = 0.1
 # asd_val_size = int(len(asd_person_list) * val_ratio)
-# bap_val_size = int(len(bap_person_list) * val_ratio)
+# dd_val_size = int(len(dd_person_list) * val_ratio)
 # td_val_size = int(len(td_person_list) * val_ratio)
 
 # Assuming to use DemoChildA, B for training and DemoChildC for verification in the demo
 asd_val_size = 1
-bap_val_size = 0
+dd_val_size = 0
 td_val_size = 1
 
-val_set = asd_person_list[:asd_val_size] + bap_person_list[:bap_val_size] + td_person_list[:td_val_size]
+val_set = asd_person_list[:asd_val_size] + dd_person_list[:dd_val_size] + td_person_list[:td_val_size]
 train_set = [element for element in person_storage.person_list if element not in val_set]
 
 mullen_feat_set = ['mullen:gross motor', 'mullen:visual reception', 'mullen:fine motor', 'mullen:receptive language', 'mullen:expressive language']
@@ -97,8 +97,8 @@ css_feat_set = ['SA CSS', 'RRB CSS']
 # 构建 train_label.txt
 train_txt_file_name = dist_path + 'train_label.txt'
 if os.path.exists(train_txt_file_name):
-    print("file already exists")
-    exit(1)
+    os.remove(train_txt_file_name)
+    print("remove origin file")
 
 for itr_person in train_set:
     person = deepcopy(itr_person)
@@ -109,7 +109,7 @@ for itr_person in train_set:
     asd_name = find_value_from_xlsx('diagnosis', excel_data, person.person_name)
     if asd_name == 'ASD':
         asd_ret = 1
-    elif asd_name in ['BAP', 'TD']:
+    elif asd_name in ['DD', 'TD']:
         asd_ret = 0
     else:
         print("diagnosis reading error")
@@ -137,16 +137,16 @@ for itr_person in train_set:
 
 # write val_label.txt
 val_txt_file_name = dist_path + 'val_label.txt'
-if os.path.exists(val_txt_file_name):
-    print("file already exists")
-    exit(1)
+# if os.path.exists(val_txt_file_name):
+#     print("file already exists")
+#     exit(0)
 
 for person in val_set:
     total_feat = []
     asd_name = find_value_from_xlsx('diagnosis', excel_data, person.person_name)
     if asd_name == 'ASD':
         asd_ret = 1
-    elif asd_name in ['BAP', 'TD']:
+    elif asd_name in ['DD', 'TD']:
         asd_ret = 0
     else:
         print("diagnosis reading error")

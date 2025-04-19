@@ -11,7 +11,7 @@ class Classification_net(nn.Module):
         #self.layer1 = nn.Linear(in_features,1)
 
     def forward(self, x):
-        print("\033[0;31;40mclass net output\033[0m")
+        #print("\033[0;31;40mclass net output\033[0m")
         x=self.layer1(x)
         x=self.act(x)
         x=self.layer2(x)
