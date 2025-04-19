@@ -11,35 +11,19 @@ To set up the required environment, execute the following commands:
 ```
 conda create -n ASD-CLIP python=3.7
 conda activate ASD-CLIP
-pip install -r requirements.txt
+bash env.sh
 ```
+Installing all packages takes approximately 10 min, depending on the network
 
-and install Apex as follows
-```
-git clone https://github.com/NVIDIA/apex
-cd apex
-git checkout 23.08
-pip install -v --disable-pip-version-check --no-cache-dir --no-build-isolation --global-option="--cpp_ext" --global-option="--cuda_ext" ./
-
-```
-Installing all packages takes approximately 1 hour, depending on the network
 # Data Preparation
 
 - **Step \#1:prepare video set**
 
 You need to prepare a collection of videos, each with a duration of at least 3 minutes. Place all these videos in folder ./org_video_path.
-There are 4 videos in org_video_path as demos.
+There are 4 videos in org_video_path as demos.(The demo video was generated statically from a single image frame and does not contain actual video data from real participants. This approach is taken to protect the privacy of study participants.)
 
-- **Step \#2:video pre-process**  
 
-Use YOLO v8 to remove useless frames from the videos. Run the following command:
-```
-python video_preprocess.py
-```
-The videos ready for subsequent training and validation will be stored in ./processed_video_path.
-4 videos in processed_video_path are the processed videos.
-
--  **Step \#3:prepare clinical information**
+-  **Step \#2:prepare clinical information**
 
 Prepare two files, totaldata.xlsx and total_video_list.txt, and place them in the ./clinical_data directory.
 The clinical information for each child should be recorded in the following format and saved as ./clinical_data/totaldata.xlsx. The XLSX file must follow this specific format:
@@ -53,11 +37,12 @@ The list of video names should be saved as ./clinical_data/total_video_list.txt.
 ```
 Check ./clinical_data/total_video_list.txt for an example.
 
--  **Step \#4:generate train and val labels**  
 
-After preparing the clinical data, run the following script to generate video labels:
+-  **Step \#3:video preprocess and generate train and val labels**  
+
+After preparing the clinical data, run the following script to preprocess videos and generate video labels:
 ```
-python generate_label/label_1Fold.py
+bash preprocess.sh
 ```
 This script retrieves the labels for each video from totaldata.xlsx and generates corresponding numerical labels. The ./video_labels directory should have the following structure, containing labels required for 1fold training and validation:
 ```
