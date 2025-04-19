@@ -11,6 +11,8 @@ To set up the required environment, execute the following commands:
 ```
 conda create -n ASD-CLIP python=3.7
 conda activate ASD-CLIP
+git clone https://github.com/kkd-1021/ASD-CLIP_public
+cd ASD-CLIP_public
 bash env.sh
 ```
 Installing all packages takes approximately 10 min, depending on the network
