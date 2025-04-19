@@ -16,7 +16,20 @@ cd ASD-CLIP_public
 bash env.sh
 ```
 Installing all packages takes approximately 10 min, depending on the network
-
+# Run demo
+We provide an automated script to directly run the demo. Before running this script, please download two CKP files and place them in the ckp folder of this project
+```
+ckp
+ ViT-L-14.pth
+ k600_14_8.pth
+```
+download URL:
+[k600_14_8.pth](https://drive.google.com/file/d/109PXerbP3vAFaNj1zy82uKrUQ1CUKTdU/view?usp=drive_link) 
+[ViT-L-14.pth](https://drive.google.com/file/d/1kMB2Naa3IvTA8Yxc-2P48Gsp7upDvupx/view?usp=drive_link)
+Then you can run the demo by executing the following command:
+```
+bash demo.sh
+```
 # Data Preparation
 
 - **Step \#1:prepare video set**
@@ -56,7 +69,7 @@ video_labels
 ```
 It should be noted that in the demo, it is assumed that DemoChildA and B will be used for training, and DemoChildC and D will be used for validation. If using one's own dataset, it is necessary to modify lines 81-89 of label_1Fold.py to reflect the desired training and validation sets.
 # Train——pretrain on Kinetics
-The training time is relatively long, it is recommended to use the checkpoints we have already trained
+The training time is relatively long, it is recommended to use the checkpoints already trained
 download [ViT-L/14](https://drive.google.com/file/d/1kMB2Naa3IvTA8Yxc-2P48Gsp7upDvupx/view?usp=drive_link)
 pretrained model from [pre-trained-ckp](https://drive.google.com/file/d/109PXerbP3vAFaNj1zy82uKrUQ1CUKTdU/view?usp=drive_link) 
  and place these in ./ckp 
