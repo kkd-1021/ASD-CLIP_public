@@ -180,16 +180,9 @@ def validate_personwise(val_loader, text_labels, model, config,logger,writer,ful
             print("\033[0;31;40mperson name_id\033[0m")
             print(f"person Id:{str(person.name_id)}")
 
-            if config.TEST.GET_BEST==True:
-                if person.gt_label_index>0.5:
-                    best_pred=max(person.pred_list)
-                else:
-                    best_pred = min(person.pred_list)
-                local_pred.append(best_pred)
-                local_gt.append(person.gt_label_index)
-            else:
-                local_pred.append(person.average_similarity)
-                local_gt.append(person.gt_label_index)
+
+            local_pred.append(person.average_similarity)
+            local_gt.append(person.gt_label_index)
             #print("\033[0;31;40mperson name_id\033[0m")
             #print(person.average_similarity,person.gt_label_index)
             print(f"ground truth diagnosis: {person.gt_label_index}")

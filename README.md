@@ -52,6 +52,7 @@ This script retrieves the labels for each video from totaldata.xlsx and generate
 video_labels
     train_label.txt
     val_label.txt
+    val_person_Id.txt
 ```
 It should be noted that in the demo, it is assumed that DemoChildA and B will be used for training, and DemoChildC and D will be used for validation. If using one's own dataset, it is necessary to modify lines 81-89 of label_1Fold.py to reflect the desired training and validation sets.
 # Train——pretrain on Kinetics
@@ -66,6 +67,7 @@ There is an example configuration file in configs/pretrain. yaml. Modify the roo
 bash pretrain.sh
 ```
 # Train——finetune
+before finetune, please ensure that you have pretrained model ./ckp/ViT-L-14.pth and ./ckp/k600_14_8.pth
 There is an example configuration file in configs/train.yaml. Modify the root path in this YAML file to point to the folder containing the processed videos. Then, run the training script:
 ```
 bash train.sh
@@ -81,10 +83,23 @@ There is an example configuration file in configs/val.yaml. Update the root path
 ```
 bash val.sh
 ```
+**model's output:**
+- The model's prediction results for each video can be obtained from the command line output. The printed format is as follows (example):
+```
+person name_id  
+person_ID: 1  
+ground truth diagnosis: 1.0  
+2 out of 2 predictions matched  
+model prediction: [0.61181640625, 0.61181640625]  
+```
+(Note: model prediction represents the model's predicted probability distribution for person_ID 1. The values in the list correspond to confidence scores for different classes or attributes.)
+- The correspondence between person IDs and video names can be found in val_person_Id.txt, with the format "video_name personID".
+
 **Note:**
 - --nproc_per_node = the number of gpu in your server
 - --resume the path to the checkpoint generated in #Train
-- 
+
+
 It takes about 2 minutes to finish demo's validation on one nvidia 3090.
 
 

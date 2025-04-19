@@ -311,7 +311,6 @@ def build_dataloader(logger, config):
         val_pipeline[1] = dict(type='SampleFrames', clip_len=1, frame_interval=1, num_clips=config.DATA.NUM_FRAMES, multiview=config.TEST.NUM_CLIP)
     
     val_data = VideoDataset(ann_file=config.DATA.VAL_FILE, data_prefix=config.DATA.ROOT, labels_file=config.DATA.LABEL_LIST, pipeline=val_pipeline)
-
     indices = np.arange(dist.get_rank(), len(val_data), dist.get_world_size())
     sampler_val = SubsetRandomSampler(indices)
     val_loader = DataLoader(

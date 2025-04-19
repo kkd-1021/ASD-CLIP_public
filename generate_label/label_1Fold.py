@@ -137,9 +137,11 @@ for itr_person in train_set:
 
 # write val_label.txt
 val_txt_file_name = dist_path + 'val_label.txt'
-# if os.path.exists(val_txt_file_name):
-#     print("file already exists")
-#     exit(0)
+val_txt_id_file_name = dist_path + 'val_person_Id.txt'
+if os.path.exists(val_txt_file_name):
+    os.remove(val_txt_file_name)
+    os.remove(val_txt_id_file_name)
+    print("remove origin file")
 
 for person in val_set:
     total_feat = []
@@ -172,4 +174,11 @@ for person in val_set:
             f.write(video_name)
             f.write(' ')
             f.write(str(label_id))
+            f.write('\n')
+
+    with open(val_txt_id_file_name, 'a') as f:
+        for video_name in person.video_list:
+            f.write(video_name)
+            f.write(' ')
+            f.write(str(person.person_id))
             f.write('\n')
