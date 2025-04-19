@@ -1,3 +1,4 @@
 mkdir processed_video_path
+mkdir video_labels
 python video_preprocess.py
 python generate_label/label_1Fold.py
