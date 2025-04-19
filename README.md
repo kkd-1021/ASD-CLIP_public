@@ -7,6 +7,7 @@
 ASD-CLIP is a novel machine learning model designed to classify 3-minute videos into Autism Spectrum Disorder (ASD) or non-ASD categories.
 
 # Environment Setup
+
 To set up the required environment, execute the following commands:
 ```
 git clone https://github.com/kkd-1021/ASD-CLIP_public
