@@ -83,7 +83,7 @@ random.shuffle(td_person_list)
 # dd_val_size = int(len(dd_person_list) * val_ratio)
 # td_val_size = int(len(td_person_list) * val_ratio)
 
-# Assuming to use DemoChildA, B for training and DemoChildC for verification in the demo
+# Assuming to use DemoChildA, B for training and DemoChildC,D for verification in the demo
 asd_val_size = 1
 dd_val_size = 0
 td_val_size = 1

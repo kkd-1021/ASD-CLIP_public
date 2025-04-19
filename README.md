@@ -44,6 +44,7 @@ After preparing the clinical data, run the following script to preprocess videos
 ```
 bash preprocess.sh
 ```
+Preprocess step of demo dataset takes approximately 2 minutes.
 This script retrieves the labels for each video from totaldata.xlsx and generates corresponding numerical labels. The ./video_labels directory should have the following structure, containing labels required for 1fold training and validation:
 ```
 video_labels
