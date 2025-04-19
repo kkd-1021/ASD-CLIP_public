@@ -17,11 +17,12 @@ bash env.sh
 ```
 Installing all packages takes approximately 10 min, depending on the network
 # Run demo
-We provide an automated script to directly run the demo. Before running this script, please download two CKP files and place them in the ckp folder of this project
+We provide an automated script to directly run the demo. Before running this script, please download two CKP files and place them in the ckp folder (you need to mkdir first) of this project
 ```
-ckp
- ViT-L-14.pth
- k600_14_8.pth
+ASD-CLIP_public
+  ckp
+   ViT-L-14.pth
+   k600_14_8.pth
 ```
 download URL:
 [k600_14_8.pth](https://drive.google.com/file/d/109PXerbP3vAFaNj1zy82uKrUQ1CUKTdU/view?usp=drive_link) 
@@ -30,6 +31,8 @@ Then you can run the demo by executing the following command:
 ```
 bash demo.sh
 ```
+
+# Run step by step：
 # Data Preparation
 
 - **Step \#1:prepare video set**
